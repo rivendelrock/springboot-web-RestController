@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import com.rocio.curso.springbootweb.models.*;
 
 
@@ -52,15 +54,23 @@ public String list (ModelMap model) {
   model.addAttribute ("tittle", "Listado de usuarios");
     return "list";     */
 
-    List <User> users = Arrays.asList(new User ("Pepa" , "Gonzalez"),
+    /* List <User> users = Arrays.asList(new User ("Pepa" , "Gonzalez"),
     new User("Andres", "Gomez"),
     new User ("Maria", "Romero", "maria@correo.com"),
     new User ("Laura", "Martinez", "rivendel@hotmail.com"));
 
-    model.addAttribute ("users", users);
+    model.addAttribute ("users", users); */
     model.addAttribute ("tittle", "Listado de usuarios!");
     return "list";
   }
+  //Con ModelAttribute podemos mandarle a la vista el objeto users y utilizarlo en distintos lugares en el view
+@ModelAttribute("users") 
+  public List <User> userModel(){
 
-
+    List <User> users = Arrays.asList(new User ("Pepa" , "Gonzalez"),
+    new User("Andres", "Gomez"),
+    new User ("Maria", "Romero", "maria@correo.com"),
+    new User ("Laura", "Martinez", "rivendel@hotmail.com"));
+    return users;  
+  } 
 }

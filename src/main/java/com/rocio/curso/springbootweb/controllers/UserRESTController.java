@@ -2,6 +2,7 @@ package com.rocio.curso.springbootweb.controllers;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,7 @@ public class UserRESTController {
 @GetMapping("/list")
    public List <User> list () {
 
-      User user= new User ("Rocío", "Marcos");
+      User user= new User ("Rocío", "Marcos", "email@email.com");
       User user2= new User ("Andres", "Guzman");
       User user3= new User ("Paty", "Hijas");
 
@@ -52,6 +53,12 @@ public class UserRESTController {
       users.add(user);
       users.add(user2);
       users.add(user3);
+      //Lista con Arrays.asList
+      //List <User> users2 = Arrays.asList(
+       //  new User ("Rocío", "Marcos"),
+       //  new User ("Pedro", "Gonzalez"),
+       //  new User ("Juanita", "Perez"));
+
       return users;
     }
     @GetMapping("/details-map") 
@@ -62,6 +69,8 @@ public class UserRESTController {
        body.put("tittle", "Paty es guapo"); 
        body.put("user", user);
              
+      
+
        return body;
 
     }
