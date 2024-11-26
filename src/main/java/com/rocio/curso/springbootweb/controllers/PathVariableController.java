@@ -7,6 +7,7 @@ import com.rocio.curso.springbootweb.models.User;
 import com.rocio.curso.springbootweb.models.DTO.ParamDto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -27,12 +28,25 @@ public class PathVariableController {
     
     @Value("${config.message}")
     private String message;
-    
+    //lo podemos poner como un array String[] o como una lista 
     @Value("${config.listOfValues}")
-    private String[] listOfValues;
+    private List<String> listOfValues;
     
     @Value("${config.code}")
     private int code;
+
+    @Value ("#{ ${config.valuesMap}}")
+    private Map <String, Object> valuesMap;
+
+    @Value ("#{ ${config.valuesMap}.product }")
+    private String product;
+
+    @Value ("#{ ${config.valuesMap}.price }")
+    private Long price;
+
+//Nos separa los valores con codigo SpEL haciendo un corte en cada coma
+    @Value("#{ '${config.listaValores}'.split(',')}")
+    private List<String> listaValores;
 
     @GetMapping("/pathV/{message}") //se enviará variable como dentro del path. Ej http://localhost:8080/api/var/pathV/mesa
     public ParamDto getMethodName(@PathVariable String message) {
@@ -68,6 +82,10 @@ public class PathVariableController {
         json.put ("mensaje", message);
         json.put ("lista de valores", listOfValues);
         json.put ("telefono", telefono);
+        json.put ("listaValores", listaValores);
+        json.put ("valuesMap", valuesMap);
+        json.put ("Product", product);
+        json.put ("Price", price);
         return json;
     
     }
