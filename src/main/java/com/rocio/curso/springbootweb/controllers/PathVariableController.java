@@ -3,19 +3,36 @@ package com.rocio.curso.springbootweb.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rocio.curso.springbootweb.models.User;
 import com.rocio.curso.springbootweb.models.DTO.ParamDto;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
 @RequestMapping("/api/var")
 public class PathVariableController {
+   
+    @Value("${config.username}")
+    private String username;
+    
+    @Value("${config.message}")
+    private String message;
+    
+    @Value("${config.listOfValues}")
+    private String[] listOfValues;
+    
+    @Value("${config.code}")
+    private int code;
 
     @GetMapping("/pathV/{message}") //se enviará variable como dentro del path. Ej http://localhost:8080/api/var/pathV/mesa
     public ParamDto getMethodName(@PathVariable String message) {
@@ -32,5 +49,26 @@ public class PathVariableController {
         json.put("id", id);
         return json;
 
+    }
+
+    @PostMapping("/create")
+    public User postMethodCreate (@RequestBody User user) {
+         
+        //Hacer algo con el usuario, por ejemplo un save en la base de datos, pasar a mayúsculas...
+        user.setName(user.getName().toUpperCase());
+        return user;
+    }
+
+    @GetMapping("/values")
+    public Map <String, Object> valoresInjectados (@Value("${config.telefono}") int telefono){
+    
+        Map <String, Object> json = new HashMap<>();
+        json.put( "username", username);
+        json.put ("código", code);
+        json.put ("mensaje", message);
+        json.put ("lista de valores", listOfValues);
+        json.put ("telefono", telefono);
+        return json;
+    
     }
 }
