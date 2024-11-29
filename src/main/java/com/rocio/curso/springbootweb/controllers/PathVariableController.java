@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,6 +50,10 @@ public class PathVariableController {
     @Value("#{ '${config.listaValores}'.split(',')}")
     private List<String> listaValores;
 
+    //Enviroment: objeto de Spring para leer configuraciones
+    @Autowired
+    private Environment environment;
+
     @GetMapping("/pathV/{message}") //se enviará variable como dentro del path. Ej http://localhost:8080/api/var/pathV/mesa
     public ParamDto getMethodName(@PathVariable String message) {
         ParamDto param = new ParamDto();
@@ -80,6 +86,11 @@ public class PathVariableController {
         json.put( "username", username);
         json.put ("código", code);
         json.put ("mensaje", message);
+        //recibimos directamente la propiedad message con el environment
+        json.put ("mensaje2",environment.getProperty("config.message"));
+        //para mandar el código cmo un long hay dos opciones
+        json.put ("code2",Long.valueOf(environment.getProperty("config.code")));
+        json.put ("Codigo en long", environment.getProperty("config.code", Long.class));
         json.put ("lista de valores", listOfValues);
         json.put ("telefono", telefono);
         json.put ("listaValores", listaValores);
