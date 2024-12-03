@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
     //Controlador que no es api rest
 
-    @GetMapping ("{"","/","home"}")
+    @GetMapping ({"","/","home"})
     public String home (){
-        return "redirect:/list";
+        return "redirect:/list"; //reinicia en navegador y lleva a la ruta indicada. Pierdes los datos de la request. 
+       // return "fordward:/list"; Redirige sin reiniciar, no cambia ruta url  y mantiene datos de la request http
     }
 
 }
