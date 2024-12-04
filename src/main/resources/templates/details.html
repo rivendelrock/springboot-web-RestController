@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}">Details</title>
-    <h1 th:text="${tittle}"></h1>
+    <h1 th:text="${title}"></h1>
     <ul>
       <li th:text="${user.name}"></lith:text></li>
       <li th:text="${user.lastName}"></li>
@@ -12,6 +12,18 @@
       <li th:if="${not (user.email != null)}" th:text="${'No tiene email'}"></li>
     </ul>
 </head>
+<a th:href="@{/list}">Ver listado</a> <!--Con thymeleaf el enlace se pone th:href--><br>
+<a th:href="@{'/api/params/foo?message='+ ${title}}">con parametros</a> <!--mandamos el titulo como parametro--><br>
+<a th:href="@{/api/params/foo?message=Mando yo el mensaje a mano}">con mensaje a mano</a> <!--Escribimos el mensaje--><br>
+<a th:href="@{/api/params/foo(message='Mando yo el mensaje a mano de otra forma')}">con mensaje a mano 2</a><br>
+<a th:href="@{/api/params/bar(text='la primavera', code=55444222)}">con dos parametros</a> <!----><br>
+<a th:href="@{/api/var/pathV/Holaaa}">con path variables</a> <!----><br>
+<a th:href="@{'/api/var/pathV/'+${title}}">con path variables y parametro</a> <!--concatenando con parametro o string--><br>
+
+
+
+
+
 <body>
     
 </body>

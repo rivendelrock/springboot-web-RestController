@@ -25,7 +25,7 @@ public class UserController {
     public String details (Model model){  //con model podemos pasar parámetros a la vista
       User user= new User ("Andres", "Guzman");
       user.setEmail("antonio@meaburro.com"); 
-      model.addAttribute("tittle", "Paty es guapo"); //cambiamos el título del html details
+      model.addAttribute("title", "Paty es guapo"); //cambiamos el título del html details
        model.addAttribute("user",  user);
 
   
